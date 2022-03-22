@@ -1,4 +1,4 @@
-// 03
+// 03장 자바스크립트 개발 환경과 실행 방법
 const arr = [1, 2, 3];
 arr.forEach(console.log);
 
