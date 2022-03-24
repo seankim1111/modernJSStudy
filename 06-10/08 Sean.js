@@ -198,5 +198,65 @@ console.log(days); // 29
 for (var i = 0; i < 2; i++) {
   console.log(i);
 }
+// 0
+// 1
+
+// 08-11
+// 역으로 반복하는 for문
+for (var i = 1; i >= 0; i--) {
+  console.log(i);
+}
+
+// 08-12
+// 무한루프
+// for (;;) { ... }
+
+// 08-13
+for (var i = 1; i <= 6; i++) {
+  for (var j = 1; j <= 6; j++) {
+    if (i + j === 6) console.log(`[${i}, ${j}]`);
+  }
+}
+// [1, 5]
+// [2, 4]
+// [3, 3]
+// [4, 2]
+// [5, 1]
+
+// 8.3.2 while 문
+// 08-14
+var count = 0;
+while (count < 3) {
+  console.log(count); // 0 1 2
+  count++;
+}
+
+// 08-15
+// 무한루프
+// while(true) { ... }
+
+// 08-16
+var count = 0;
+while (true) {
+  console.log(count);
+  count++;
+  if (count === 3) break;
+} // 0 1 2
+
+// 8.3.3 do...while 문
+// 08-17
+var count = 0;
+do {
+  console.log(count); // 0 1 2
+  count++;
+} while (count < 3);
+
 // 8.4 break 문
+// 08-18
+if (true) {
+  break; // Uncaught SyntaxError
+}
+
+// 08-19
+foo: console.log('foo')
 // 8.5 continue 문
