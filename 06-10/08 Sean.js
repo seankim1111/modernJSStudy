@@ -253,10 +253,91 @@ do {
 
 // 8.4 break 문
 // 08-18
-if (true) {
-  break; // Uncaught SyntaxError
-}
+// if (true) {
+//   break; // Uncaught SyntaxError
+// }
 
 // 08-19
-foo: console.log('foo')
+foo: console.log("foo");
+
+// 08-20
+foo: {
+  console.log(1);
+  break foo; // foo 레이블 블록문을 탈출
+  console.log(2);
+}
+console.log("Done!");
+
+// 08-21
+outer: for (var i = 0; i < 3; i++) {
+  for (var j = 0; j < 3; j++) {
+    // i + j === 3이면 outer라는 식별자가 붙은 레이블 for 문을 탈출
+    if (i + j === 3) break outer;
+    console.log(`inner [${i}, ${j}]`);
+  }
+}
+console.log("Done!");
+
+// 08-22
+var string = "Hello World.";
+var search = "l";
+var index;
+
+// 문자열은 유사 배열이므로 for 문으로 순화할 수 있다.
+for (var i = 0; i < string.length; i++) {
+  // 문자열의 개별 문자가 'l'이면
+  if (string[i] === search) {
+    index = i;
+    break;
+  }
+}
+console.log(index); // 2
+// 참고로 String.prototype.indexOf 매서드를 사용해도 같은 동작을 함
+console.log(string.indexOf(search)); // 2
+
 // 8.5 continue 문
+// 08-23
+var string = "Hello World.";
+var search = "l";
+var index;
+
+// 문자열은 유사 배열이므로 for 문으로 순화할 수 있다.
+for (var i = 0; i < string.length; i++) {
+  // 'l'이 아니면 현 지점에서 실행을 중단하고 반복문을 증감식으로 이동
+  if (string[i] !== search) continue;
+  count++;
+}
+console.log(count); // 3
+
+// 참고로 String.prototype.match 매서드를 사용해도 같은 동작을 함
+const regexp = new RegExp(search, "g");
+console.log(string.match(regexp).length); // 3
+
+// 08-24
+for (var i = 0; i < string.length; i++) {
+  // 'l'이면 카운트를 증가시킨다.
+  if (string[i] === search) count++;
+}
+
+// 08-25
+// continue 문을 사용하지 않으면 if 문 내에 코드를 작성해야 한다.
+for (var i = 0; i < string.length; i++) {
+  // 'l'이면 카운트를 증가시킨다.
+  if (string[i] === search) {
+    count++;
+    // code
+    // code
+    // code
+  }
+}
+
+// continue 문을 사용하면 if 문 밖에 코드를 작성할 수 있다.
+for (var i = 0; i < string.length; i++) {
+  // 'l'이 아니면 카운트를 증가시키지 않는다.
+  if (string[i] !== search) continue;
+
+  count++;
+  // code
+  // code
+  // code
+}
