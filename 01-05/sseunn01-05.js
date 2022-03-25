@@ -42,7 +42,7 @@ const arr = [1,2,3]
 // [예제 03-03]
 const arr = [1,2,3]
 
-arr.forEacg(alert);
+arr.forEach(alert);
 
 // [예제 03-04]
 <!DOCTYPE html>
