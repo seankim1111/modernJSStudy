@@ -289,7 +289,10 @@ console.log(multiply(3, 5)); // undefined
 // <!DOCTYPE html>
 <html>
   <body>
-    <script>return; // SyntaxError</script>
+    <script>
+      return;
+      {/* SyntaxError */}
+    </script>
   </body>
 </html>;
 
@@ -301,13 +304,267 @@ function changeVal(primitive, obj) {
   obj.name = "Kim";
 }
 // 외부상태
+var num = 100;
+var person = { name: "Lee" };
+
+console.log(num); // 100
+console.log(person); // {name : 'Lee'}
+
+changeVal(num, person);
+
+console.log(num); // 100
+console.log(person); // {name : 'Kim'}
 
 // 12.7 다양한 함수의 형태
 // 12.7.1 즉시 실행 함수
+// 12-34
+// 익명 즉시 실행 함수
+(function () {
+  var a = 3;
+  var b = 5;
+  return a * b;
+})();
+
+// 12-35
+// 기명 즉시 실행 함수
+(function foo() {
+  var a = 3;
+  var b = 5;
+  return a * b;
+})();
+
+foo(); // ReferenceError:
+
+// 12-36
+// function () { // SyntaxError:
+// ...
+// }();
+
+// 12-37
+// function foo() {
+// ...
+// }(); // SyntaxError:
+
+// 12-38
+// function foo() {}(); // => function foo() {};();
+
+// 12-39
+// (); // SyntaxError:
+
+// 12-40
+console.log(typeof function f() {}); // function
+console.log(typeof function () {}); // function
+
+// 12-41
+(function () {
+  // ...
+})();
+
+(function () {
+  // ...
+})();
+
+!(function () {
+  // ...
+})();
+
++(function () {
+  // ...
+})();
+
+// 12-42
+var res = (function () {
+  var a = 3;
+  var b = 5;
+  return a * b;
+})();
+
+console.log(res); // 15
+
+res = (function (a, b) {
+  return a * b;
+})(3, 5);
+
+console.log(res); // 15
+
 // 12.7.2 재귀 함수
+// 12-43
+function countdown(n) {
+  for (var i = n; i >= 0; i--) console.log(i);
+}
+
+countdown(10);
+
+// 12-44
+function countdown(n) {
+  if (n < 0) return;
+  console.log(n);
+  countdown(n - 1); // 재귀 호출
+}
+
+countdown(10);
+
+// 12-45
+// 팩토리얼(계승)은 1부터 자신까지의 모든 양의 정수의 곱이다.
+// n! = 1 * 2 * 3 .. * (n-1) * n
+function factorial(n) {
+  // 탈출 조건: n이 1 이하일 때 재귀 호출을 멈춘다.
+  if (n <= 1) return 1;
+  // 재귀 호출
+  return n * factorial(n - 1);
+}
+
+console.log(factorial(0)); // 0! = 1
+console.log(factorial(1)); // 1! = 1
+console.log(factorial(2)); // 2! = 2 * 1 = 2
+console.log(factorial(3)); // 3! = 6
+console.log(factorial(4)); // 4! = 24
+console.log(factorial(0)); // 5! = 120
+
+// 12-46
+var factorial = function foo(n) {
+  if (n <= 1) return 1;
+  return n * factorial(n - 1);
+};
+
+console.log(factorial(5)); // 120
+
+// 12-47
+function factorial(n) {
+  if (n <= 1) return 1;
+
+  var res = n;
+  while (--n) res *= n;
+  return res;
+}
+
+console.log(factorial(0)); // 0! = 1
+console.log(factorial(1)); // 1! = 1
+console.log(factorial(2)); // 2! = 2 * 1 = 2
+console.log(factorial(3)); // 3! = 3 * 2 * 1 = 6
+console.log(factorial(4)); // 4! = 4 * 3 * 2 * 1 =24
+console.log(factorial(0)); // 5! = 120
+
 // 12.7.3 중첩 함수
+// 12-48
+function outer() {
+  var x = 1;
+
+  // 중첩 함수
+  function inner() {
+    var y = 2;
+    console.log(x + y);
+  }
+  inner();
+}
+outer();
+
 // 12.7.4 콜백 함수
+// 12-49
+function repeat(n) {
+  for (var i = 0; i < n; i++) console.log(i);
+}
+
+repeat(5); // 0 1 2 3 4
+
+// 12-50
+function repeat1(n) {
+  for (var i = 0; i < n; i++) console.log(i);
+}
+
+repeat(5); // 0 1 2 3 4
+
+function repeat2(n) {
+  for (var i = 0; i < n; i++) {
+    if (i % 2) console.log(i);
+  }
+}
+
+repeat(5); // 1 3
+
+// 12-51
+function repeat1(n, f) {
+  for (var i = 0; i < n; i++) {
+    f(i);
+  }
+}
+
+var logAll = function (i) {
+  console.log(i);
+};
+
+repeat(5, logAll); // 0 1 2 3 4
+
+var logOdds = function (i) {
+  if (i % 2) console.log(i);
+};
+
+repeat(5, logOdds); // 1 3
+
+// 12-52
+repeat(5, function (i) {
+  if (i % 2) console.log(i);
+}); // 1 3
+
+// 12-53
+var logOdds = function (i) {
+  if (i % 2) console.log(i);
+};
+repeat(5, logOdds); // 1 3
+
+// 12-54
+document.getElementById("myButton").addEventListener("click", function () {
+  console.log("button clicked!");
+});
+
+// 콜백 함수를 사용한 비동기 처리
+// 1초 후에 메시지를 출력
+setTimeout(function () {
+  console.log("1초 경과");
+}, 1000);
+
+// 12-55
+var res = [1, 2, 3].map(function (item) {
+  return item * 2;
+});
+
+console.log(res); // [2, 4, 6]
+
+var res = [1, 2, 3].filter(function (item) {
+  return item % 2;
+});
+
+console.log(res); // [1, 3]
+
+var res = [1, 2, 3].reduce(function (acc, cur) {
+  return acc + cur;
+}, 0);
+
+console.log(res); // 6
 
 // 12.7.5 순수 함수와 비순수 함수
 // 12-56
+var count = 0;
+
+function increase(n) {
+  return ++n;
+}
+
+count = increase(count);
+console.log(count); // 1
+
+count = increase(count);
+console.log(count); // 2
+
 // 12-57
+var count = 0;
+
+function increase() {
+  return ++count;
+}
+
+increase();
+console.log(count); // 1
+
+increase();
+console.log(count); // 2
