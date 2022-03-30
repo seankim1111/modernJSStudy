@@ -1,4 +1,4 @@
-# 모던 자바스크립트 Depp DIVE 를 활용한 그룹 🐻‍❄️스터디
+# 모던 자바스크립트 Deep Dive 를 활용한 🐻‍❄️그룹 스터디
 
 ### 220321-220403 예제풀이
 
@@ -6,12 +6,12 @@
 
 ## 🐻‍❄️스터디 목표
 
-![image](https://user-images.githubusercontent.com/92914205/159213992-24e2816f-18ae-4ea2-a377-2a96e94ae053.png)
+![image](https://user-images.githubusercontent.com/92914205/159122420-c6553fb3-12a7-4c56-a645-cf224437f6cd.png)
 
 모던 자바스크립트 Deep Dive 완독 및 예제 풀이
 
-- 예제풀이는 15일을 목표로 함
-- 이론 스터디는 15일 후 논의 예정
+- 예제풀이는 2주를 목표로 함
+- 이론 스터디는 2주 후 논의 예정
 
 ## 🐻‍❄️스터디 방법
 
