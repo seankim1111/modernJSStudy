@@ -68,7 +68,7 @@ function foo() {
       console.log('local function foo');
     }
   
-    foo(); // 1
+    foo(); //1
   }
   
   bar();
