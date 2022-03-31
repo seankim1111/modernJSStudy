@@ -163,5 +163,9 @@ const person = {
 person.name = "Kim";
 
 console.log(person); // {name: 'Kim'}
+// const 키워드는 재할당을 금지할 뿐 '불변'을 의미하지는 않는다.
 
 // 15.4 var vs. let vs. const
+// ES6를 사용한다면 var 키워드는 사용하지 않는다.
+// 재할당이 필요한 경우에 한정해 let 키워드를 사용한다.
+// 변경이 발생하지 않고 읽기 전용으로 사용하는 원시 값과 객체에는 const 키워드를 사용한다.
