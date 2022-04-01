@@ -137,68 +137,307 @@ console.log(window.foo); // undefined
 // ____21.4.1 빌트인 전역 프로퍼티
 // Infinity
 // 21-12
+// 전역 프로퍼티는 window 를 생략하고 참조할 수 있다.
+console.log(window.Infinity === Infinity); // true
+
+// 양의 무한대
+console.log(3 / 0); // Infinity
+// 음의 무한대
+console.log(-3 / 0); // -Infinity
+// Infinity 는 숫자값이다.
+console.log(typeof Infinity); // number
 
 // NaN
 // 21-13
+console.log(window.NaN); // NaN
+
+console.log(Number("xyz")); // NaN
+console.log(1 * "string"); // NaN
+console.log(typeof NaN); // number
 
 // undefined
 // 21-14
+console.log(window.undefined); // undefined
+
+var foo;
+console.log(foo); // undefined
+console.log(typeof undefined); // undefined
 
 // ____21.4.2 빌트인 전역 함수
 // eval
 // 21-15
+// 표현식인 문
+eval("1 + 2"); // 3
+// 표현식이 아닌 문
+eval("var x = 5"); // undefined
+
+// eval 함수에 의해 런타임에 변수 선언문이 실행되어 x 변수가 선언되었다.
+console.log(x); // 5
+
+// 객체 리터럴은 반드시 괄호로 둘러싼다.
+const o = eval("({ a: 1 })");
+console.log(o); // {a: 1}
+
+// 함수 리터럴은 반드시 괄호로 둘러싼다.
+const f = eval("(function() { return 1;})");
+console.log(f()); // 1
 
 // 21-16
+// 마지막 결과값을 반환
+eval("1 + 2; 3 + 4;"); // 7
 
 // 21-17
+const x = 1;
+
+function foo() {
+  // eval 함수는 런타임에 foo 함수의 스코프를 동적으로 수정한다.
+  eval("var x = 2");
+  console.log(x); // 2
+}
+
+foo();
+console.log(x); // 1
 
 // 21-18
+const x = 1;
+
+function foo() {
+  "use strict";
+
+  // strict mode에서 eval 함수는 기존의 스코프를 수정하지 않고 eval 함수 자신의 자체적인 스코프를 생성한다.
+  eval("var x = 2; console.log(x);"); // 2
+  console.log(x); // 1
+}
+
+foo();
+console.log(x); // 1
 
 // 21-19
+const x = 1;
+
+function foo() {
+  eval("var x = 2; console.log(x);"); // 2
+  // let, const 키워드를 사용한 변수 선언문은 strict mode 가 적용된다.
+  eval("const x = 3; console.log(x);"); // 3
+  console.log(x); // 2
+}
 
 // isFinite
 // 21-20
+// 인수가 유한수이면 true 를 반환한다.
+isFinite(0); // true
+isFinite(2e64); // true
+isFinite("10"); // true '10' -> 10
+isFinite(null); // true: null -> 0
+
+// 인수가 무한수 또는 NaN으로 평가되는 값이라면 false 를 반환한다.
+isFinite(Infinity); // false
+isFinite(-Infinity); // false
+
+// 인수가 NaN으로 평가되는 값이라면 false 를 반환한다.
+isFinite(NaN); // false
+isFinite("Hello"); // false
+isFinite("2005/12/12"); // false
 
 // 21-20
+console.log(+null); // 0
 
 // isNaN
 // 21-22
+// 숫자
+isNaN(NaN); // true
+isNaN(10); // false
+
+// 문자열
+isNaN("blabla"); // true: 'blabla' => NaN
+isNaN("10"); // false: 10
+isNaN(""); // false: '' => 0
+
+// 불리언
+isNaN(true); // false: true -> 1
+isNaN(false); // false: false -> 0
+
+// undefined
+isNaN(undefined); // true: undefined => NaN
+
+// 객체
+isNaN({}); // true: {} => NaN
+
+// date
+isNaN(new Date()); // false: new Date() => number
+isNaN(new Date().toString); // true: String => NaN
 
 // parseFloat
+// 전달받은 문자열 인수를 부동 소숫점 숫자, 즉 실수로 해석하여 반환한다.
 // 21-23
+parseFloat("3.14"); // 3.14
+parseFloat("10.00"); // 10
+
+parseFloat("34 45 66"); // 34
+parseFloat("40 years"); // 40
+
+// 첫 번째 문자열을 숫자로 변환할 수 없다면 NaN 을 반환한다.
+parseFloat("He was 40"); // NaN
+
+parseFloat(" 60 "); // 60
 
 // parseInt
+// 전달받은 문자열 인수를 정수로 해석하여 반환한다.
 // 21-24
+parseInt("10"); // 10
+parseInt("10.123"); // 10
 
 // 21-25
+// 전달받은 인수가 문자열이 아니면 문자열 변환 후, 정수로 해석하여 반환한다.
+parseInt(10); // 10
+parseInt(10.123); // 10
 
 // 21-26
+parseInt("10", 2); // 2
+parseInt("10", 8); // 8
+parseInt("10", 16); // 16
 
 // 21-27
+const x = 15;
+
+// 10진수 15를 2진수로 변환하여 그 결과를 문자열로 반환한다.
+x.toString(2); // 1111
+// 문자열 '1111'을 2진수로 해석하고 그 결과를 10진수 정수로 반환한다.
+parseInt(x.toString(2), 2); // 15
+
+// 10진수 15를 8진수로 변환하여 그 결과를 문자열로 반환한다.
+x.toString(8); // -> '17'
+// 문자열 '17'을 8진수로 해석하고 그 결과를 10진수 정수로 반환한다
+parseInt(x.toString(8), 8); // -> 15
+
+// 10진수 15를 16진수로 변환하여 그 결과를 문자열로 반환한다.
+x.toString(16); // -> 'f'
+// 문자열 'f'를 16진수로 해석하고 그 결과를 10진수 정수로 반환한다
+parseInt(x.toString(8), 8); // -> 15
+
+// 숫자값을 문자열로 변환한다.
+x.toString(); // 15
+parseInt(x.toString()); // 15
 
 // 21-28
+// 16진수 리터럴 '0*f'를 16진수로 해석하고 10진수 정수로 그 결과를 반환한다.
+parseInt("0*f"); // 15
+// 같은 코드
+parseInt("f", 16); // 15
 
 // 21-29
+// 2진수 리터럴과 8진수 리터럴은 제대로 해석하지 못한다.
+parseInt("0b10"); // 0
+
+parseInt("0o10"); // 0
 
 // 21-30
+parseInt("10", 2); // 2
+
+parseInt("10", 8); // 8
 
 // 21-31
+parseInt("A0"); // NaN
+// '2'는 2진수로 해석할 수 없다.
+parseInt("20", 2); // NaN
 
 // 21-32
+// 10진수로 해석할 수 없는 'A' 이후의 문자는 모두 무시된다.
+parseInt("1A0"); // -> 1
+// 2진수로 해석할 수 없는 '2' 이후의 문자는 모두 무시된다.
+parseInt("102", 2); // -> 2
+// 8진수로 해석할 수 없는 '8' 이후의 문자는 모두 무시된다.
+parseInt("58", 8); // -> 5
+// 16진수로 해석할 수 없는 'G' 이후의 문자는 모두 무시된다.
+parseInt("FG", 16); // -> 15
 
 // 21-33
+// 공백으로 구분된 문자열은 첫 번째 문자열만 변환한다.
+parseInt("34 45 66"); // -> 34
+parseInt("40 years"); // -> 40
+// 첫 번째 문자열을 숫자로 변환할 수 없다면 NaN을 반환한다.
+parseInt("He was 40"); // -> NaN
+// 앞뒤 공백은 무시된다.
+parseInt(" 60 "); // -> 60
 
 // encodeURI / decodeURI
 // 21-34
+const uri = "http://example.com?name=dmdah&job=programmer&teacher";
+// encodeURI 함수는 완전한 URI 를 전달받아 이스케이프 처리를 위해 인코딩한다.
+const enc = encodeURI(uri);
+console.log(enc);
+// http://example.com?name=%EEF%%%SESAA%AE%&job=programmer&teacher
 
 // 21-35
+const dec = decodeURI(enc);
+console.log(dec);
+// http://example.com?name=dmdah&job=programmer&teacher
 
 // encodeURIComponent / decodeURIComponent
 // 21-36
+const uriComp = "name=dmdah&job=programmer&teacher";
+
+let enc = encodeURIComponent(uriComp);
+console.log(enc);
+// name%EFS%%%EWFSAA%DSFE%AEFjob%3DProgrammerr%6teacher
+
+let dec = decodeURIComponent(enc);
+console.log(dec);
+// name=dmdah&job=programmer&teacher
+
+enc = encodeURI(uriComp);
+console.log(enc);
+// name%EFS%%%EWFSAA%DSFE%AEFjob%3DProgrammerr%6teacher
+
+dec = decodeURI(enc);
+console.log(dec);
+// name=dmdah&job=programmer&teacher
 
 // ____21.4.3 암묵적 전역
 // 21-37
+var x = 10;
+
+function foo() {
+  y = 20; // window.y = 20
+}
+foo();
+
+// 선언하지 않은 식별자 y를 전역에서 참조할 수 있다.
+console.log(x + y); // 30
 
 // 21-38
+// 전역 변수 x는 호이스팅이 발생한다.
+console.log(x); // undefined
+// 전역 변수가 아니라 단지 전역 객체의 프로퍼티인 y는 호이스팅이 발생하지 않는다.
+console.log(y); // ReferenceError:
+
+var x = 10; // 전역 변수
+
+function foo() {
+  // 선언하지 않은 식별자에 값을 할당
+  y = 20;
+}
+foo();
+
+// 선언하지 않은 식별자 y를 전역에서 참조할 수 있다.
+console.log(x + y); // 30
 
 // 21-39
+var x = 10; // 전역 변수
+
+function foo() {
+  // 선언하지 않은 식별자에 값을 할당
+  y = 20; // window.y = 20;
+  console.log(x + y);
+}
+
+foo(); // 30
+
+console.log(window.x); // 10
+console.log(window.y); // 20
+
+delete x; // 전역 변수는 삭제되지 않는다.
+delete y; // 프로퍼티는 삭제된다.
+
+console.log(window.x); // 10
+console.log(window.y); // undefined
