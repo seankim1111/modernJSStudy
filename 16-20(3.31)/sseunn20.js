@@ -18,6 +18,7 @@ function foo(){
     x = 10; //ReferenceError: x is not defined 
 }
 foo();
+
 //[예제풀이 20 -04]
 function foo(){
     
@@ -25,6 +26,7 @@ function foo(){
     'use strict'
 }
 foo();
+
 //[예제풀이 20 -05]
 <!DOCTYPE html>
 <html>
