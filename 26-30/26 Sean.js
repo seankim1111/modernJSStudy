@@ -15,23 +15,110 @@ obj.foo(); // 1
 // 26-02
 var foo = function () {};
 
-foo();
-new foo();
+// ES6 이전의 모든 함수는 callable이면서 constructor다.
+foo(); // undefined
+new foo(); // foo{}
 
 // 26-03
+// 프로퍼티 f 에 바인딩된 함수는 callable이면서 constructor다.
+var obj = {
+  x: 10,
+  f: function () {
+    return this.x;
+  },
+};
+
+// 프로퍼티 f 에 바인딩된 함수를 메서드로서 호출
+console.log(obj.f()); // 10
+
+// 프로퍼티 f 에 바인딩된 함수를 일반 함수로서 호출
+var bar = obj.f;
+console.log(bar()); // undefined
+
+// 프로퍼티 f 에 바인딩된 함수를 생성자 함수로서 호출
+console.log(new obj.f()); // f {}
+
 // 26-04
+// 콜백 함수를 사용하는 고차 함수 map. 콜백 함수도 constructor 이며 프로토타입을 생성한다.
+[1, 2, 3].map(function (item) {
+  return item * 2;
+}); // [2, 4, 6]
 
 // 26.2 메서드
 // 26-05
+const obj = {
+  x: 1,
+  // foo는 매서드다.
+  foo() {
+    return this.x;
+  },
+  // bar에 바인딩된 함수는 메서드가 아닌 일반 함수다.
+  bar: function () {
+    return this.x;
+  },
+};
+
+console.log(obj.foo()); // 1
+console.log(obj.bar()); // 1
+
 // 26-06
+new obj.foo(); // TypeError:
+new obj.bar(); // bar {}
+
 // 26-07
+// obj.foo 는 constructor 가 아닌 ES6 메서드이므로 prototype 프로퍼티가 없다.
+obj.foo.hasOwnProperty("prototype"); // false
+
+// obj.bar 는 constructor 인 일반 함수이므로 prototype 프로퍼티가 있다.
+obj.bar.hasOwnProperty("prototype"); // true
+
 // 26-08
+String.prototype.toUpperCase.prototype; // undefined
+String.fromCharCode.prototype; // undefined
+
+Number.prototype.toFixed.prototype; // undefined
+Number.isFinite.prototype; // undefined
+
+Array.prototype.map.prototype; // undefined
+Array.from.prototype; // undefined
+
 // 26-09
+const base = {
+  name: "Lee",
+  sayHi() {
+    return `Hi! ${this.name}`;
+  },
+};
+
+const derived = {
+  __proto__: base,
+  // sayHi 는 ES6 메서드다. ES6 메서드는 [[HomeObject]]를 갖는다.
+  // sayHi 의 [[HomeObject]]는 sayHi 가 바인딩된 객체인 derived를 가리키고
+  // sayHi 는 sayHi의 [[HomeObject]]의 프로토타입인 base를 가리킨다
+  sayHi() {
+    return `${super.sayHi()}. how are you doing?`;
+  },
+};
+
+console.log(derived.sayHi()); // Hi! Lee. how are you doing?
+
 // 26-10
+const derived = {
+  __proto__: base,
+  // sayHi 는 ES6 메서드가 아니다.
+  // 따라서 sayHi는 [[HomeObject]]를 갖지 않으므로 super 키워드를 사용할 수 없다.
+  sayHi: function () {
+    // SyntaxError:
+    return `${super.sayHi()}. how are you doing?`;
+  },
+};
 
 // 26.3 화살표 함수
 // ____26.3.1 화살표 함수 정의
 // 26-11
+const multiply = (x, y) => x * y;
+multiply(2, 3); // 6
+
 // 26-12
 // 26-13
 // 26-14

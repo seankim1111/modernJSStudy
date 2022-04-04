@@ -173,7 +173,7 @@ class Person {
   }
 }
 
-// 인스턴스 프로퍼티가 추가된다
+// 
 const me = new Person();
 console.log(me) // Person {name: "Lee", address: "Seoul"}
 
