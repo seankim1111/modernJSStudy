@@ -1,4 +1,16 @@
 // 26장 ES6 함수의 추가 기능
+// 26-01
+var foo = function () {
+  return 1;
+};
+
+foo(); // 1
+
+new foo(); // foo {}
+
+var obj = { foo: foo };
+obj.foo(); // 1
+
 // 26.1 함수의 구분
 // 26.2 메서드
 // 26.3 화살표 함수
