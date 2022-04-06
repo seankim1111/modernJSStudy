@@ -88,78 +88,78 @@ const innerFunc = outer();
 innerFunc();
 
 // 24-06
-// <!DOCTYPE html>
-// <html>
-// <body>
-//   <script>
-//     function foo() {
-//       const x = 1;
-//       const y = 2;
+<!DOCTYPE html>
+<html>
+<body>
+  <script>
+    function foo() {
+      const x = 1;
+      const y = 2;
 
-//       // 일반적으로 클로저라고 하지 않는다.
-//       function bar() {
-//         const z = 3;
+      // 일반적으로 클로저라고 하지 않는다.
+      function bar() {
+        const z = 3;
 
-//         debugger;
-//         // 상위 스코프의 식별자를 참조하지 않는다.
-//         console.log(z);
-//       }
+        debugger;
+        // 상위 스코프의 식별자를 참조하지 않는다.
+        console.log(z);
+      }
 
-//       return bar;
-//     }
+      return bar;
+    }
 
-//     const bar = foo();
-//     bar();
-//   </script>
-// </body>
-// </html>
+    const bar = foo();
+    bar();
+  </script>
+</body>
+</html>
 
 // 24-07
-// <!DOCTYPE html>
-// <html>
-// <body>
-//   <script>
-//     function foo() {
-//       const x = 1;
+<!DOCTYPE html>
+<html>
+<body>
+  <script>
+    function foo() {
+      const x = 1;
 
-//       // 일반적으로 클로저라고 하지 않는다.
-//       // bar 함수는 클로저였지만 곧바로 소멸한다.
-//       function bar() {
-//         debugger;
-//         // 상위 스코프의 식별자를 참조한다.
-//         console.log(x);
-//       }
-//       bar();
-//     }
+      // 일반적으로 클로저라고 하지 않는다.
+      // bar 함수는 클로저였지만 곧바로 소멸한다.
+      function bar() {
+        debugger;
+        // 상위 스코프의 식별자를 참조한다.
+        console.log(x);
+      }
+      bar();
+    }
 
-//     foo();
-//   </script>
-// </body>
-// </html>
+    foo();
+  </script>
+</body>
+</html>
 
 // 24-08
-// <!DOCTYPE html>
-// <html>
-// <body>
-//   <script>
-//     function foo() {
-//       const x = 1;
-//       const y = 2;
+<!DOCTYPE html>
+<html>
+<body>
+  <script>
+    function foo() {
+      const x = 1;
+      const y = 2;
 
-//       // 클로저
-//       // 중첩 함수 bar는 외부 함수보다 더 오래 유지되며 상위 스코프의 식별자를 참조한다.
-//       function bar() {
-//         debugger;
-//         console.log(x);
-//       }
-//       return bar;
-//     }
+      // 클로저
+      // 중첩 함수 bar는 외부 함수보다 더 오래 유지되며 상위 스코프의 식별자를 참조한다.
+      function bar() {
+        debugger;
+        console.log(x);
+      }
+      return bar;
+    }
 
-//     const bar = foo();
-//     bar();
-//   </script>
-// </body>
-// </html>
+    const bar = foo();
+    bar();
+  </script>
+</body>
+</html>
 
 // 24.4 클로저의 활용
 // 24-09

@@ -40,24 +40,24 @@ foo();
 
 // 20.3 전역에 strict mode를 적용하는 것은 피하자
 // 20-05
-// <!DOCTYPE html>
-// <html>
-// <body>
-//   <script>
-//     'use strict';
-//   </script>
-//   <script>
-//     x = 1; // 에러 없음
-//     console.log(x); // 1
-//   </script>
-//   <script>
-//     'use strict';
+<!DOCTYPE html>
+<html>
+<body>
+  <script>
+    'use strict';
+  </script>
+  <script>
+    x = 1; // 에러 없음
+    console.log(x); // 1
+  </script>
+  <script>
+    'use strict';
 
-//     y = 1; // ReferenceError: y is not defined
-//     console.log(y);
-//   </script>
-// </body>
-// </html>
+    y = 1; // ReferenceError: y is not defined
+    console.log(y);
+  </script>
+</body>
+</html>
 
 // 20-06
 // 즉시 실행 함수의 선두에 strict mode 적용

@@ -286,7 +286,7 @@ function multiply(x, y) {
 console.log(multiply(3, 5)); // undefined
 
 // 12-32
-// <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
   <body>
     <script>
