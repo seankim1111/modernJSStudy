@@ -1,0 +1,323 @@
+// 32장 String
+// 32.1 String 생성자 함수
+// 32-01
+const strObj = new String();
+console.log(strObj); // String {length: 0, [[PrimitiveValue]]: ""}
+
+// 32-02
+const strObj = new String("Lee");
+console.log(strObj);
+// String {'0': 'L', '1': 'e', '2': 'e', length: 3, [[PrimitiveValue]]: "Lee"}
+
+// 32-03
+console.log(strObj[0]); // L
+
+// 32-04
+// 문자열은 원시 값이므로 변경할 수 없다. 에러는 발생하지 않는다.
+strObj[0] = "S";
+console.log(strObj); // "Lee"
+
+// 32-05
+let strObj = new String(123);
+console.log(strObj);
+
+strObj = new String(null);
+console.log(strObj);
+
+// 32-06
+// 숫자 타입 => 문자열 타입
+String(1); // "1"
+String(NaN); // "NaN"
+String(Infinity); // "Infinity"
+
+// 불리언 타입 => 문자열 타입
+String(true); // "true"
+String(false); // "false"
+
+// 32.2 length 프로퍼티
+// 32-07
+"Hello".length; // 5
+"안녕하세요!".length; // 6
+
+// 32.3 String 메서드
+// 32-08
+const strObj = new String("Lee");
+
+console.log(Object.getOwnPropertyDescriptors(strObj));
+// {
+//   '0': {
+//     value: 'L',
+//     writable: false,
+//     enumerable: true,
+//     configurable: false
+//   },
+//   '1': {
+//     value: 'e',
+//     writable: false,
+//     enumerable: true,
+//     configurable: false
+//   },
+//   '2': {
+//     value: 'e',
+//     writable: false,
+//     enumerable: true,
+//     configurable: false
+//   },
+//   length: {
+//     value: 3,
+//     writable: false,
+//     enumerable: false,
+//     configurable: false
+//   }
+// }
+
+// ____32.3.1 String.prototype.indexOf
+// 32-09
+const str = "Hello World";
+
+str.indexOf("l"); // 2
+
+str.indexOf("or"); // 7
+
+// 문자열 str 에서 "x"를 검색하여 첫 번째 인덱스를 반환한다. 검색에 실패하면 -1을 반환한다.
+str.indexOf("x"); // -1
+
+// 32-10
+// 문자열 str의 인덱스 3부터 "l"을 검색하여 첫 번째 인덱스를 반환한다.
+str.indexOf("l", 3); // 3
+
+// 32-11
+if (str.indexOf("Hello") !== -1) {
+  // 문자열 str에 "Hello"가 포함되어 있는 경우에 처리할 내용
+}
+
+// 32-12
+if (str.includes("Hello")) {
+  // 문자열 str에 "Hello"가 포함되어 있는 경우에 처리할 내용
+}
+
+// ____32.3.2 String.prototype.search
+// 32-13
+const str = "Hello world";
+
+// 문자열 str에서 정규 표현식과 매치하는 문자열을 검색하여 일치하는 문자열의 인덱스를 반환한다.
+str.search(/o/); // 4
+str.search(/x/); // -1
+
+// ____32.3.3 String.prototype.includes
+// 32-14
+const str = "Hello world";
+
+str.includes("Hello"); // true
+str.includes(""); // true
+str.includes("x"); // false
+str.includes(); // false
+
+// 32-15
+const str = "Hello world";
+
+// 문자열 str의 인덱스 3부터 "l"이 포함되어 있는지 확인
+str.includes("l", 3); // true
+str.includes("H", 3); // false
+
+// ____32.3.4 String.prototype.startsWith
+// 32-16
+const str = "Hello world";
+
+str.startsWith("He"); // true
+str.startsWith("x"); // false
+
+// 32-17
+str.startsWith(" ", 5); // true
+
+// ____32.3.5 String.prototype.endsWith
+// 32-18
+const str = "Hello world";
+
+str.endsWith("ld"); // true
+str.endsWith("x"); // false
+
+// 32-19
+// 문자열 str의 처음부터 5자리까지("Hello")가 "lo"로 끝나는지 확인
+str.endsWith("lo", 5); // ture
+
+// ____32.3.6 String.prototype.charAt
+// 32-20
+const str = "Hello world";
+
+for (let i = 0; i < str.length; i++) {
+  console.log(str.charAt(i)); // H e l l o
+}
+
+// 32-21
+// 인덱스가 문자열의 범위(0 - str.length-1)를 벗어난 경우 빈 문자열을 반환한다.
+str.charAt(5); // ""
+
+// ____32.3.7 String.prototype.substring
+// 32-22
+const str = "Hello World";
+
+//
+str.substring(1, 4); // ell
+
+// 32-23
+const str = "Hello World";
+
+str.substring(1); // "ello World"
+
+// 32-24
+const str = "Hello World";
+
+// 첫 번째 인수 > 두 번째 인수인 경우 두 인수는 교환된다.
+str.substring(4, 1); // "ell"
+
+// 인수 < 0 또는 NaN인 경우 0으로 취급된다
+str.substring(-2); // "Hello World"
+
+// 인수 > 문자열의 길이인 경우 인수는 문자열의 길이로 취급된다.
+str.substring(1, 100); // "ello World"
+str.substring(20); // ""
+
+// 32-25
+const str = "Hello World";
+
+// 스페이스를 기준으로 앞에 있는 문자열 취득
+str.substring(0, str.indexOf(" ")); // "Hello"
+
+// 스페이스를 기준으로 뒤에 있는 문자열 취득
+str.substring(str.indexOf(" ") + 1, str.length); // "World"
+
+// ____32.3.8 String.prototype.slice
+// 32-26
+const str = "hello world";
+
+// substring과 slice 메서드는 동일하게 동작한다.
+// 0번째부터 5번째 이전 문자까지 잘라내어 반환
+str.substring(0, 5); // "hello"
+str.slice(0, 5); // "hello"
+
+// 인덱스가 2인 문자부터 마지막 문자까지 잘라내어 반환
+str.substring(2); // "llo world"
+str.slice(2); // "llo world"
+
+// 인수 < 0 또는 NaN인 경우 0으로 취급된다.
+str.substring(-5); // "hello wrold"
+// slice 메서드는 음수인 인수를 전달할 수 있다. 뒤에서 5자리를 잘라내어 반환한다.
+str.slice(-5); // "world"
+
+// ____32.3.9 String.prototype.toUpperCase
+// 32-27
+const str = "Hello World!";
+
+str.toUpperCase(); // "HELLO WORLD!"
+
+// ____32.3.10 String.prototype.toLowerCase
+// 32-28
+const str = "Hello World";
+
+str.toLowerCase(); // "hello world!"
+
+// ____32.3.11 String.prototype.trim
+// 32-29
+const str = "   foo   ";
+
+str.trim(); // "foo"
+
+// 32-30
+const str = "   foo   ";
+
+str.trimStart(); // "foo   "
+str.trimEnd(); // "   foo"
+
+// 32-31
+const str = "   foo   ";
+
+str.replace(/\s/g, ""); // "foo"
+str.replace(/^\s+/g, ""); // "foo   "
+str.replace(/\s+$/g, ""); // "   foo"
+
+// ____32.3.12 String.prototype.repeat
+// 32-32
+const str = "abc";
+
+str.repeat(); // ""
+str.repeat(0); // ""
+str.repeat(1); // "abc"
+str.repeat(2); // "abcabc"
+str.repeat(2.5); // "abcabc" (2.5 > 2)
+str.repeat(-1); // RangeError:
+
+// ____32.3.13 String.prototype.replace
+// 32-33
+const str = "Hello world";
+
+str.replace("world", "Lee"); // "Hello Lee"
+
+// 32-34
+const str = "Hello world world";
+
+str.replace("world", "Lee"); // "Hello Lee world"
+
+// 32-35
+const str = "Hello world";
+
+// 특수한 교체 패턴을 사용할 수 있다. ($& > 검색된 문자열)
+str.replace("world", "<strong>$&</strong>");
+
+// 32-36
+const str = "Hello Hello";
+
+// "hello"를 대소문자를 구별하지 않고 전역 검색한다.
+str.replace(/hello/gi, "Lee"); // "Lee Lee"
+
+// 32-37
+// 카멜 케이스를 스네이크 케이스로 변환하는 함수
+function camelToSnake(camelCase) {
+  // /.[A-Z]/g는 임의의 한 문자와 대문자로 이루어진 문자열에 매치한다.
+  // 치환 함수의 인수로 매치 결과가 전달되고, 치환 함수가 반환한 결과와 매치 결과를 치환한다.
+  return camelCase.replace(/.[A-Z]/g, (match) => {
+    console.log(match);
+    return match[0] + "_" + match[1].toLowerCase();
+  });
+}
+
+const camelCase = "helloWorld";
+camelToSnake(camelCase); // "hello_world"
+
+// 스네이크 케이스를 카멜 케이스로 변환하는 함수
+function snakeToCamel(snakeCase) {
+  // /_[a-z]/g는 _와 소문자로 이루어진 문자열에 매치한다.
+  // 치환 함수의 인수로 매치 결과가 전달되고, 치환 함수가 반환한 결과와 매치 결과를 치환한다.
+  return snakeCase.replace(/_[a-z]/g, (match) => {
+    console.log(match); // "_w"
+    return match[1].toUpperCase();
+  });
+}
+
+const snakeCase = "hello_world";
+snakeToCamel(snakeCase); // "helloWorld"
+
+// ____32.3.14 String.prototype.split
+// 32-38
+const str = "How are you doing?";
+
+str.split(" "); // [ 'How', 'are', 'you', 'doing?' ]
+
+// \s는 여러 가지 공백 문자를 의미한다.
+str.split(/\s/); // [ 'How', 'are', 'you', 'doing?' ]
+
+str.split(""); // [ 'H', 'o', 'w', ' ', 'a', 'r', 'e', ' ', 'y', 'o', 'u', ' ', 'd', 'o', 'i', 'n', 'g', '?' ]
+
+str.split(); // [ 'How are you doing?' ]
+
+// 32-39
+// 공백으로 구분하여 배열로 반환한다. 단, 배열의 길이는 3이다.
+str.split(" ", 3); // [ 'How', 'are', 'you' ]
+
+// 32-40
+// 인수로 전달받은 문자열을 역순으로 뒤집는다.
+function reverseString(str) {
+  return str.split("").reverse().join("");
+}
+
+reverseString("Hello world!"); // '!dlrow olleH'
