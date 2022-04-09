@@ -23,12 +23,12 @@ const [one, two, three] = arr;
 console.log(one, two, three); // 1 2 3
 
 // 36-03
-// const [x, y] = [1, 2];
+const [x, y] = [1, 2];
 
 // 36-04
-// const [x, y]; // SyntaxError:
+const [x, y]; // SyntaxError:
 
-// const [a, b]; // TypeError:
+const [a, b]; // TypeError:
 
 // 36-05
 let x, y;
@@ -110,7 +110,7 @@ console.log(firstName, lastName); // Ungmo Lee
 const { lastName, firstName } = { firstName: "Ungmo", lastName: "Lee" };
 
 // 36-13
-// const { lastName, firstName };
+const { lastName, firstName };
 // SyntaxError:
 
 const { lastName, firstName } = null;
