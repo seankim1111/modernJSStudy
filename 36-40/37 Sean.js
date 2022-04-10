@@ -288,6 +288,22 @@ console.log(setB.difference(setA)); // Set(0) {}
 
 // 부분 집합과 상위 집합. 집합 A가 집합 B에 포함되는 경우 집합 A는 집합 B의 부분 집합이며, 집합 B는 집합 A의 상위 집합이다.
 // 37-24
+//
+Set.prototype.isSuperset = function (subset) {
+  for (const value of subset) {
+    //
+    if (!this.has(value)) return false;
+  }
+
+  return true;
+};
+
+const setA = new Set([1, 2, 3, 4]);
+const setB = new Set([2, 4]);
+
+//
+console.log(setA.isSuperset(setB)); // true
+console.log(setB.isSuperset(setA)); // false
 
 // 37-25
 
