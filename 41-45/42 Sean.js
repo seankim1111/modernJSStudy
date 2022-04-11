@@ -33,6 +33,8 @@ sleep(foo, 3 * 1000);
 bar();
 // (3초 경과 후) foo 호출 -> bar 호출
 
+// 현재 실행 종료되지 않은 상태라 해도 다음 태스크를 곧바로 실행하는 방식을 비동기(asynchronous)처리라고 한다.
+
 // 42-03
 function foo() {
   console.log("foo");
