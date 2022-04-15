@@ -143,7 +143,7 @@ export default (x) => x * x;
 
 // 48-18
 // lib.mjs
-// export default const foo = () => {};
+export default const foo = () => {};
 // => SyntaxError:
 // export default () => {};
 

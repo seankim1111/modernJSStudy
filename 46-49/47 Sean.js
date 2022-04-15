@@ -73,7 +73,7 @@ console.log("[End]");
 const error = new Error("invalid");
 
 // 47-08
-// 1 @ 1; // SyntaxError:
+1 @ 1; // SyntaxError:
 foo(); // ReferenceError:
 null.foo; // TypeError:
 new Array(-1); // RangeError:
