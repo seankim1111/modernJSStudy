@@ -206,15 +206,129 @@ console.log(person.getName()); //Lee
 22.2.2 메서드 호출 
 //[예제풀이 22 -15] 
 const person = {
-    name : 'Lee', 
-     
-}
+    name : 'Kim', 
+};
+//getName 메서드를 anotherPerson 객체의 메서드로 할당
+anotherPerson.getName = person.getName; 
+//getName메서드를 호출한 객체는 anotherPerson이다. 
+console.log(anotherPerson.getName()); //Kim 
+//getName메서드를 변수에 할당
+const getName = person.getName; 
+//getName 메서드를 일반함수로 호출 
+console.log(getName) ; 
+//일반함수로 호출된 getName함수 내부의 this.name 은 브라우저 환경에서 window.name과 같다. 
+//브라우저 환경에서 window.name은 브라우저 창의 이름을 나타내는 빌트인 프로퍼티이며 기본값은 ''이다.
+//Node.js환경에서 this.name은 undefined이다. 
+
 //[예제풀이 22 -16]
+function Person(name) {
+    this.name = name; 
+} 
+Person.prototype.getName = function() {
+    return this.name; 
+}; 
+const me = new Person ('Lee'); 
+//getName 메서드를 호출한 객체는 me이다. 
+console.log(me.getName()); //1. Lee
+Person.prototype.name = 'Kim';
+//getName 메서드를 호출한 객체는 Person.prototype이다. 
+console.log(Person.prototype.getName()); // 2. Kim
 //[예제풀이 22 -17]
+//생성자 함수
+function Circle (radius) {
+    //생성자 함수 내부의 this 는 생성자 함수가 생성할 인스턴스를 가리킨다. 
+    this.radius = radius;
+    this.getDiameter = function() {
+        return 2 * this.radius; 
+    }; 
+}
+//반지름이 5인 circle객체를 생성 
+const circle1 =new Circle(5); 
+//반지름이 10인 Circle 객체를 생성. 
+const circle2 =new Circle(10); 
+console.log(circle1.getDiameter()); //10
+console.log(circle2.getDiameter()); //20
 //[예제풀이 22 -18]
+//new연산자와 함께 호출하지 않으면 생성자 함수로 동작하지 않는다. 즉, 일반적인 함수의 호출이다. 
+const circle3 = Circle(15); 
+//일반함수로 호출된 Circle에는 반환문이 없으므로 암묵적으로 undefined를 반환한다.
+console.log(Circle3);// undefined 
+//일반함수로 호출된 Circle 내부의 this는 전역 객체를 가리킨다. 
+console.log(radius); //15
+22.2.4 Function.prototype.apply/call/bind메서드에 의한 간점 호출 
 //[예제풀이 22 -19]
+function getThisBinding(){
+    return this; 
+}
+//this로 사용할 객체 
+const thisArg = { a: 1};
+console.log(getThisBinding()); //window 
+//getThisBinding함수를 호출하면서 인수로 전달한 객체를 getThisBinding함수의 this에 바인딩한다. 
+console.log(getThisBinding.apply(thisArg)); //{a:1}
+console.log(getThisBinding.call(thisArg)); //{a:1}
 //[예제풀이 22 -20]
+function getThisBinding(){
+    console.log(arguments);
+    return this;
+}
+//this로 사용할 객체 
+const thisArg = { a: 1 }
+//getThisBinding 함수를 호출하면서 인수로 전달한 객체를 getThisBInding함수의 this에 바인딩한다. 
+//apply메서드는 호출할 함수의 인수를 배열로 묶어 전달한다.
+console.log(getThisBinding.apply(thisArg,[1,2,3])); 
+//Arguments(3)[1,2,3, callee:f, Symbol(Symbol, iterator):f]
+//{a:1}
+//call메서드는 호출할 함수의 인수를 쉼표로 구분한 리스트 형식으로 전달한다.
+console.log(getThisBinding.call(thisArg,1,2,3)); 
+//Arguments(3)[1,2,3,callee: f, Symbol(Symbol.iterator):f]
+{a:1}
 //[예제풀이 22 -21]
+function convertArgsToArray(){
+    console.log(arguments); 
+
+    //argument객체를 배열로 변환
+    //Array.prototype.slice를 인수없이 호출하면 배열의 복사본을 생성한다. 
+    const arr = Array.prototype.slice.call(arguments);
+    //const arr =Array.prototype.slice.apply(argumnets);
+    console.log(arr);
+
+    return arr;
+}
+convertArgsToArray(1,2,3); //[1,2,3]
+
 //[예제풀이 22 -22]
+function getThisBinding (){
+    return this;
+}
+//this로 사용할 객체 
+const thisArg = {a:1}; 
+//bind메서드는 첫번째 인수로 전달한 thisArg로 this바인딩이 겨ㅛ체된 
+//getThisBinding함수를 새롭게 생성해 반환한다.
+console.log(getThisBinding.bind(thisArg)); //getThisBinding
+//bind메서드는 함수를 호출하지는 않으므로 명시적으로 호출해야한다.
+console.log(getThisBinding.bind(thisArg()); //{a:1}
 //[예제풀이 22 -23]
+const person = {
+    name: 'Lee',
+    foo(callback){
+        //1
+        setTimeout(callback, 100);
+    }
+}
+person.foo(function(){
+    console.log(`Hi! my name is ${this.name}.`); //2. Hi! my name is 
+    //일반함수로 호출된 콜백함수 내부의 this.name은 브라우저 환경에서 window.name과 같다.
+    //브라우저 환경에서 window.name 은 브라우저 창의 이름을 나타내는 빌트인 프로퍼티이며 기본값은 ''이다. 
+    //Node.js환경에서 this.naem은 undefined이다. 
+});
 //[예제풀이 22 -24]
+const person = {
+    name : 'Lee',
+    foo(callback){
+        //bind메서드로 callback 함수 내부의 this 바인딩을 전달 
+        setTimeout(callback.bind(this),100);
+    }
+};
+person.foo(function(){
+    console.log(`Hi!my name is ${this.name}.`); //Hi! my name is Lee.
+})
