@@ -163,6 +163,11 @@ function normal(a, a) {return a + a;}
 const arrow = (a,a) => a + a;
 //SyntaxError: Duplicate parameter name not allowed in this context
 //[예제풀이 26 -28]
+class Prefixer {
+   constructor (prefix) {
+       this.prefix = prefix ;
+   }
+}
 //[예제풀이 26 -29]
 //[예제풀이 26 -30]
 //[예제풀이 26 -31]
