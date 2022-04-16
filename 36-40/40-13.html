@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button>Click me!</button>
+    <script>
+      const $button = document.querySelector("button");
+
+      const handleClick = () => console.log("button click");
+
+      // 이벤트 핸들러 등록
+      $button.addEventListener("click", handleClick);
+
+      // 이벤트 핸들러 제거
+      // addEventListener 메서드에 전달한 인수와 removeEventListener 메서드에
+      // 전달한 인수가 일치하지 않으면 이벤트 핸들러가 제거되지 않는다.
+      $button.removeEventListener("click", handleClick, true); // 실패
+      $button.removeEventListener("click", handleClick); // 성공
+    </script>
+  </body>
+</html>

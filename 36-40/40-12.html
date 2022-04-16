@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button>Click me!</button>
+    <script>
+      const $button = document.querySelector("button");
+
+      const handleClick = () => console.log("button click");
+
+      // 참조가 동일한 이벤트 핸들러를 중복 등록하면 하나의 핸들러만 등록된다.
+      $button.addEventListener("click", handleClick);
+      $button.addEventListener("click", handleClick);
+    </script>
+  </body>
+</html>
