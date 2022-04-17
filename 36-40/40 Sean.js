@@ -81,6 +81,7 @@ $button.addEventListener("click", function () {
   // arguments.callee는 호출된 함수, 즉 함수 자신을 가리킨다.
   $button.removeEventListener("click", arguments.callee);
 });
+
 // 40-17
 
 // 40.5 이벤트 객체
@@ -88,6 +89,9 @@ $button.addEventListener("click", function () {
 // 40-18
 // 40-19
 // 40-20
+function onclick(event) {
+  showCoords(event);
+}
 
 // ____40.5.1 이벤트 객체의 상속 구조
 // 40-21

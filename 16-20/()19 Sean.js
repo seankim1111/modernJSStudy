@@ -62,3 +62,5 @@ console.log(person); // {name: "Lee", address: "Seoul"}
 // ____19.14.1 for...in 문
 
 // ____19.14.2 Object.keys/values/entries 메서드
+
+// 19-72

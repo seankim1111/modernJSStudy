@@ -1,180 +1,181 @@
-// // 25장 클래스
-// // 25.1 클래스는 프로토타입의 문법적 설탕인가?
-// // 자바스크립트는 프로토타입 기반 객체지향 언어다.
-// 25 - 01;
-// // ES5 생성자 함수
-// var Person = (function () {
-//   // 생성자 함수
-//   function Person(name) {
-//     this.name = name;
-//   }
+// 25장 클래스
+// 25.1 클래스는 프로토타입의 문법적 설탕인가?
+// 자바스크립트는 프로토타입 기반 객체지향 언어다.
+25 - 01;
+// ES5 생성자 함수
+var Person = (function () {
+  // 생성자 함수
+  function Person(name) {
+    this.name = name;
+  }
 
-//   // 프로토타입 메서드
-//   Person.prototype.sayHi = function () {
-//     console.log("Hi! My name is " + this.name);
-//   };
+  // 프로토타입 메서드
+  Person.prototype.sayHi = function () {
+    console.log("Hi! My name is " + this.name);
+  };
 
-//   // 생성자 함수 변환
-//   return Person;
-// })();
+  // 생성자 함수 변환
+  return Person;
+})();
 
-// // 인스턴스 생성
-// var me = new Person("Lee");
-// me.sayHi(); // Hi! My name is Lee
+// 인스턴스 생성
+var me = new Person("Lee");
+me.sayHi(); // Hi! My name is Lee
 
-// // 25.2 클래스 정의
-// // 25-02
-// // 클래스 선언문
-// class Person {}
+// 25.2 클래스 정의
+// 25-02
+// 클래스 선언문
+class Person {}
 
-// // 익명 클래스 표현식
-// const Person = class {};
+// 익명 클래스 표현식
+const Person = class {};
 
-// // 기명 클래스 표현식
-// const Person = class MyClass {};
+// 기명 클래스 표현식
+const Person = class MyClass {};
 
-// // 25-04
-// // 클래스 선언문
-// class Person {
-//   // 생성자
-//   constructor(name) {
-//     // 인스턴스 생성 및 초기화
-//     this.name = name; // name 프로퍼티는 public 하다.
-//   }
+// 25-04
+// 클래스 선언문
+class Person {
+  // 생성자
+  constructor(name) {
+    // 인스턴스 생성 및 초기화
+    this.name = name; // name 프로퍼티는 public 하다.
+  }
 
-//   // 프로토타입 메서드
-//   sayHi() {
-//     console.log(`Hi! My name is ${this.name}`);
-//   }
+  // 프로토타입 메서드
+  sayHi() {
+    console.log(`Hi! My name is ${this.name}`);
+  }
 
-//   // 정적 메서드
-//   static sayHello() {
-//     console.log("Hello!");
-//   }
-// }
+  // 정적 메서드
+  static sayHello() {
+    console.log("Hello!");
+  }
+}
 
-// // 인스턴스 생성
-// const me = new Person("Lee");
+// 인스턴스 생성
+const me = new Person("Lee");
 
-// // 인스턴스의 프로퍼티 참조
-// console.log(me.name); // Lee
-// // 프로토타입 메서드 호출
-// me.sayHi(); // Hi! My name is Lee
-// // 정적 메서드 호출
-// Person.sayHello(); // Hello!
+// 인스턴스의 프로퍼티 참조
+console.log(me.name); // Lee
+// 프로토타입 메서드 호출
+me.sayHi(); // Hi! My name is Lee
+// 정적 메서드 호출
+Person.sayHello(); // Hello!
 
-// // 25.3 클래스 호이스팅
-// // 25-05
-// // 클래스 선언문
-// class Person {}
+// 25.3 클래스 호이스팅
+// 25-05
+// 클래스 선언문
+class Person {}
 
-// // 25-06
-// console.log(typeof Person); // function
+// 25-06
+console.log(typeof Person); // function
 
-// // 25-07
-// const Person = "";
+// 25-07
+const Person = "";
 
-// {
-//   // 호이스팅이 발생하지 않는다면 ''이 출력되어야 한다.
-//   console.log(Person);
-//   // ReferenceError:
+{
+  // 호이스팅이 발생하지 않는다면 ''이 출력되어야 한다.
+  console.log(Person);
+  // ReferenceError:
 
-//   // 클래스 선언문
-//   class Person {}
-// }
+  // 클래스 선언문
+  class Person {}
+}
 
-// // 25.4 인스턴스 생성
-// // 25-08
-// class Person {}
+// 25.4 인스턴스 생성
+// 25-08
+class Person {}
 
-// // 인스턴스 생성
-// const me = new Person();
-// console.log(me); // Person{}
+// 인스턴스 생성
+const me = new Person();
+console.log(me); // Person{}
 
-// // 25-09
-// // 클래스를 new 연산자 없이 호출하면 타입 에러가 발생한다.
-// const me = Person(); // TypeError:
+// 25-09
+// 클래스를 new 연산자 없이 호출하면 타입 에러가 발생한다.
+const me = Person(); // TypeError:
 
-// // 25-10
-// const Person = class MyClass {};
+// 25-10
+const Person = class MyClass {};
 
-// // 함수 표현식과 마찬가지로 클래스를 가리키는 식별자로 인스턴스를 생성해야 한다.
-// const me = new Person();
+// 함수 표현식과 마찬가지로 클래스를 가리키는 식별자로 인스턴스를 생성해야 한다.
+const me = new Person();
 
-// // 클래스 이름 MyClass 는 함수와 동일하게 클래스 몸체 내부에서만 유효한 식별자다.
-// console.log(MyClass); // ReferenceError:
+// 클래스 이름 MyClass 는 함수와 동일하게 클래스 몸체 내부에서만 유효한 식별자다.
+console.log(MyClass); // ReferenceError:
 
-// const you = new MyClass(); // ReferenceError:
+const you = new MyClass(); // ReferenceError:
 
-// // 25.5 메서드
-// // ____25.5.1 constructor
-// // constructor는 이름을 변경할 수 없다.
-// // 25-11
-// class Person {
-//   // 생성자
-//   constructor(name) {
-//     // 인스턴스 생성 및 초기화
-//     this.name = name;
-//   }
-// }
+// 25.5 메서드
+// ____25.5.1 constructor
+// constructor는 이름을 변경할 수 없다.
+// 25-11
+class Person {
+  // 생성자
+  constructor(name) {
+    // 인스턴스 생성 및 초기화
+    this.name = name;
+  }
+}
 
-// // 25-12
-// //
-// console.log(typeof Person); // function
-// console.dir(Person);
+// 25-12
+//
+console.log(typeof Person); // function
+console.dir(Person);
 
-// // 25-13
-// // 인스턴스 생성
-// const me = new Person("Lee");
-// console.log(me);
+// 25-13
+// 인스턴스 생성
+const me = new Person("Lee");
+console.log(me);
 
-// // 25-14
-// class Person {
-//   // 생성자
-//   constructor(name) {
-//     // 인스턴스 생성 및 초기화
-//     this.name = name;
-//   }
-// }
+// 25-14
+class Person {
+  // 생성자
+  constructor(name) {
+    // 인스턴스 생성 및 초기화
+    this.name = name;
+  }
+}
 
-// // 생성자 함수
-// function Person(name) {
-//   // 인스턴스 생성 및 초기화
-//   this.name = name;
-// }
+// 생성자 함수
+function Person(name) {
+  // 인스턴스 생성 및 초기화
+  this.name = name;
+}
 
-// // 25-15
-// class Person {
-//   constructor() {}
-//   constructor() {}
-// }
-// // SyntaxError:
+// 25-15
+class Person {
+  constructor() {}
+  constructor() {}
+}
+// SyntaxError:
 
-// // 25-16
-// class Person {}
 
-// // 25-17
-// class Person {
-//   // constructor 는 생략하면 아래와 같이 빈 constructor 가 암묵적으로 정의된다.
-//   constructor() {}
-// }
+// 25-16
+class Person {}
 
-// // 빈 객체가 생성된다
-// const me = new Person();
-// console.log(me); // Person {}
+// 25-17
+class Person {
+  // constructor 는 생략하면 아래와 같이 빈 constructor 가 암묵적으로 정의된다.
+  constructor() {}
+}
 
-// // 25-18
-// class Person {
-//   constructor() {
-//     // 고정값으로 인스턴스 초기화
-//     this.name = "Lee"
-//     this.name = "Seoul";
-//   }
-// }
+// 빈 객체가 생성된다
+const me = new Person();
+console.log(me); // Person {}
 
-// //
-// const me = new Person();
-// console.log(me) // Person {name: "Lee", address: "Seoul"}
+// 25-18
+class Person {
+  constructor() {
+    // 고정값으로 인스턴스 초기화
+    this.name = "Lee"
+    this.name = "Seoul";
+  }
+}
+
+// 
+const me = new Person();
+console.log(me) // Person {name: "Lee", address: "Seoul"}
 
 // 25-19
 // 25-20
