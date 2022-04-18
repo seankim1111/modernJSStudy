@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <ul id="fruits">
+      <li i="apple">Apple</li>
+      <li i="banana">Banana</li>
+      <li i="orange">Orange</li>
+    </ul>
+    <script>
+      const $fruits = document.getElementById("fruits");
+
+      // $fruits 요소의 하위 요소인 li 요소를 클릭한 경우
+      $fruits.addEventListener("click", (e) => {
+        console.log(`이벤트 단계: ${e.eventPhase}`); // 3: 버블링 단계
+        console.log(`이벤트 타깃: ${e.target}`); // [object HTMLLIElement]
+        console.log(`이벤트 타깃: ${e.currentTarget}`); // [object HTMLUListElement]
+      });
+    </script>
+  </body>
+</html>
