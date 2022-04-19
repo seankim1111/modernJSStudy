@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <p>클릭하세요. 클릭한 곳의 좌표가 표시됩니다.</p>
+    <em class="message"></em>
+    <script>
+      const $msg = document.querySelector(".message");
+      // 클릭 이벤트에 의해 생성된 이벤트 객체는 이벤트 핸들러의 첫 번째 인수로 전달된다.
+      function showCoords(e) {
+        $msg.textContent = `clientX: ${e.clientX}, clientY: ${e.clientY} `;
+      }
+
+      document.onclick = showCoords;
+    </script>
+  </body>
+</html>

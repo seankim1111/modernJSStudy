@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button>Click me!</button>
+    <script>
+      const $button = document.querySelector("button");
+
+      // addEventListener 메서드는 동일한 요소에서 발생한 동일한 이벤트에 대해
+      // 하나 이상의 이벤트 핸들러를 등록할 수 있다.
+      $button.addEventListener("click", function () {
+        console.log("[1]button click");
+      });
+
+      $button.addEventListener("click", function () {
+        console.log("[2]button click");
+      });
+    </script>
+  </body>
+</html>
