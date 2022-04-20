@@ -100,6 +100,13 @@ function onclick(event) {
 // ____40.5.2 이벤트 객체의 공통 프로퍼티
 // 40-23
 // 40-24
+$checkbox.onchange = (e) => {
+  // e.target은 change 이벤트를 발생시킨 DOM 요소 $checkbox를 가리키고
+  // e.currentTarget은 이벤트 핸들러가 바인딩된 DOM 요소 $checkbox를 가리킨다.
+  console.log(e.target === e.currentTarget); // true
+
+  $msg.textContent = e.target.checked ? "on" : "off";
+};
 
 // ____40.5.3 마우스 정보 취득
 // 40-25
