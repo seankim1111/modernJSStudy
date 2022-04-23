@@ -152,12 +152,58 @@ $checkbox.onchange = (e) => {
 // 40.11 커스텀 이벤트
 // ____40.11.1 커스텀 이벤트 생성
 // 40-46
+// KeyboardEvent 생성자 함수로 keyup 이벤트 타입의 커스텀 이벤트 객체를 생성
+const keyboardEvent = new KeyboardEvent("keyup");
+console.log(keyboardEvent.type); // keyup
+
+// CustomEvent 생성자 함수로 foo 이벤트 타입의 커스텀 이벤트 객체를 생성
+const customEvent = new CustomEvent("foo");
+console.log(customEvent.type); // foo
+
 // 40-47
+// MouseEvent 생성자 함수로 click 이벤트 타입의 커스텀 이벤트 객체를 생성
+const customEvent = new MouseEvent("click");
+console.log(customEvent.type); // click
+console.log(customEvent.bubbles); // false
+console.log(customEvent.cancelable); // false
+
 // 40-48
+// MouseEvent 생성자 함수로 click 이벤트 타입의 커스텀 이벤트 객체를 생성
+const customEvent = new MouseEvent("click", {
+  bubbles: true,
+  cancelable: true,
+});
+
+console.log(customEvent.bubbles); // true
+console.log(customEvent.cancelable); // true
+
 // 40-49
+// MouseEvent 생성자 함수로 click 이벤트 타입의 커스텀 이벤트 객체를 생성
+const mouseEvent = new MouseEvent("click", {
+  bubbles: true,
+  cancelable: true,
+  clientX: 50,
+  clientY: 100,
+});
+
+console.log(mouseEvent.clientX); // 50
+console.log(mouseEvent.clientY); // 100
+
+// KeyboardEvent 생성자 함수로 keyup 이벤트 타입의 커스텀 이벤트 객체를 생성
+const keyboardEvent = new KeyboardEvent("keyup", { key: "Enter" });
+
+console.log(keyboardEvent.key); // Enter
+
 // 40-50
+// InputEvent 생성자 함수로 foo 이벤트 타입의 커스텀 이벤트 객체를 생성
+const customEvent = new InputEvent("foo");
+console.log(customEvent.isTrusted); // false
 
 // ____40.11.2 커스텀 이벤트 디스패치
 // 40-51
 // 40-52
+//CustomEvent 생성자 함수로 foo 이벤트 타입의 커스텀 이벤트 객체를 생성
+const customEvent = new CustomEvent("foo");
+console.log(customEvent.type); // foo
+
 // 40-53

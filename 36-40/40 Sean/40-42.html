@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button class="btn">0</button>
+    <script>
+      class App {
+        constructor() {
+          this.$button = document.querySelector(".btn");
+          this.count = 0;
+
+          // increase 메서드를 이벤트 핸들러로 등록
+          // this.$button.onclick = this.increase;
+
+          // increase 메서드 내부의 this가 인스턴스를 가리키도록 한다.
+          this.$button.onclick = this.increase.bind(this);
+        }
+
+        increase() {
+          this.$button.textContent = ++this.count;
+        }
+      }
+
+      new App();
+    </script>
+  </body>
+</html>

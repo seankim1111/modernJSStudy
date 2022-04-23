@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button class="btn">0</button>
+    <script>
+      class App {
+        constructor() {
+          this.$button = document.querySelector(".btn");
+          this.count = 0;
+
+          // increase 메서드를 이벤트 핸들러로 등록
+          this.$button.onclick = this.increase;
+        }
+
+        increase() {
+          // 이벤트 핸들러 increase 내부의 this는 DOM 요소(this.$button)를 가리킨다.
+          // 따라서 this.$button은 this.$button.$button과 같다.
+          this.$button.textContent = ++this.count;
+          // -> TypeError:
+        }
+      }
+
+      new App();
+    </script>
+  </body>
+</html>
