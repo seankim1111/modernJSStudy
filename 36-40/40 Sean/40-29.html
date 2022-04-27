@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <ul id="fruits">
+      <li id="apple">Apple</li>
+      <li id="banana">Banana</li>
+      <li id="orange">Orange</li>
+    </ul>
+    <script>
+      const $fruits = document.getElementById("fruits");
+      const $banana = document.getElementById("banana");
+
+      // $fruits 요소의 하위 요소인 li 요소를 클릭한 경우 캡처링 단계의 이벤트를 캐치한다.
+      $fruits.addEventListener(
+        "click",
+        (e) => {
+          console.log(`이벤트 단계: ${e.eventPhase}`); // 1: 캡쳐링 단계
+          console.log(`이벤트 타깃: ${e.target}`); // [object HTMLLIElement]
+          console.log(`커런트 타깃: ${e.currentTarget}`); // [object HTMLUListElement]
+        },
+        true
+      );
+
+      // 타깃 단계의 이벤트를 캐치한다.
+      $banana.addEventListener("click", (e) => {
+        console.log(`이벤트 단계: ${e.eventPhase}`); // 2: 타깃 단계
+        console.log(`이벤트 타깃: ${e.target}`); // [object HTMLLIElement]
+        console.log(`커런트 타깃: ${e.currentTarget}`); // [object HTMLUListElement]
+      });
+
+      // 버블링 단계의 이벤트를 캐치한다.
+      $fruits.addEventListener("click", (e) => {
+        console.log(`이벤트 단계: ${e.eventPhase}`); // 3: 버블링 단계
+        console.log(`이벤트 타깃: ${e.target}`); // [object HTMLLIElement]
+        console.log(`커런트 타깃: ${e.currentTarget}`); // [object HTMLUListElement]
+      });
+    </script>
+  </body>
+</html>
