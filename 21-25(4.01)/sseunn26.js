@@ -169,36 +169,279 @@ class Prefixer {
    }
 }
 //[예제풀이 26 -29]
+... 
+add(arr) {
+    //this를 일단 회피시킨다. 
+    const that = this;
+    return arr.map(function (item){
+        //this 대신 that을 참조한다. 
+        return that.prefix + ' ' + item;
+    });
+}
+...
 //[예제풀이 26 -30]
+add (arr) {
+    return arr.map(function (item){
+        return this.prefix + ' ' + item;
+    }, this); //this에 바인딩된 값이 콜백함수 내부의 this에 바인딩된다. 
+    }
+}
 //[예제풀이 26 -31]
+...add (arr) {
+    return arr.map (function (item){
+        return this.prefix + ' ' + item;
+    }.bind(this)); //this에 바인딩 된 값이 콜백함수 내부의 this에 바인딩 된다.
+}
+...
 //[예제풀이 26 -32]
+class Prefixer {
+    constructor(prefix) {
+        this.prefix = prefix ;
+    }
+    add(arr){
+        return arr.map(item => this.prefix + item ;)
+    }
+}
+const prefix = new prefixer = new Prefixer('-webkit-');
+console.log(prefixer.add (['transition','user-select']));
+//['webkit-transition', '-webkit-user-select']
 //[예제풀이 26 -33]
+//화살표 함수는 상위 스코프의 this를 참조한다. 
+() => this.x; 
+//익명 함수에 상위 스코프의 this를 주입한다. 위 화살표 함수와 동일하게 동작한다. 
+(function () {return this.x; }).bind(this);
 //[예제풀이 26 -34]
+//중첩함수 foo의 상위 스코프는 즉시 실행 함수이다.
+//따라서 화살표 함수 foo의 this는 상위 스코프인 즉시 실행함수의 this를 가리킨다.
+(function () {
+    const foo = () =>console.log(this); 
+    foo();
+}).call({ a : 1 }); //{ a : 1 }
+//bar 함수는 화살표 함수를 반환한다.
+//bar함수가 반환한 화살표 함수의 상위 스코프는 화살표 함수 bar이다.
+//하지만 화살표 함수는 함수자체의 this ㅏ인딩을 갖지 않으므로 bar 함수가 반환한 화살표 함수 내부에서 참조하는 this는 화살표함수가 아닌 즉시실행 함수의 this를 가리키낟. 
+(function () { 
+    const bar = () => () => console.log(this); 
+    bar()(); 
+}).call({ a : 1 }); //{ a : 1}
 //[예제풀이 26 -35]
+// 전역 함수 foo의 상위 스코프는 전역이므로 화살표 함수 foo의 this는 전역 객체를 가리킨다.
+const foo = () => console.log(this);
+foo(); // window
+console.log(counter.increase()); // NaN
 //[예제풀이 26 -36]
+// increase 프로퍼티에 할당한 화살표 함수의 상위 스코프는 전역이다.
+// 따라서 increase 프로퍼티에 할당한 화살표 함수의 this는 전역 객체를 가리킨다.
+const counter = {
+    num: 1,
+    increase: () => ++this.num
+  };
+  console.log(counter.increase()); // NaN
 //[예제풀이 26 -37]
+window.x = 1;
+const normal = function () { return this.x; };
+const arrow = () => this.x;
+console.log(normal.call({ x: 10 })); // 10
+console.log(arrow.call({ x: 10 }));  // 1
 //[예제풀이 26 -38]
+const add = (a, b) => a + b;
+
+console.log(add.call(null, 1, 2));    // 3
+console.log(add.apply(null, [1, 2])); // 3
+console.log(add.bind(null, 1, 2)());  // 3
 //[예제풀이 26 -39]
+// Bad
+const person = {
+  name: 'Lee',
+  sayHi: () => console.log(`Hi ${this.name}`)
+};
+//sayHi 프로퍼티에 할당된 화살표 함수 내부의 this는 상위 스코프인 전역의 this가 가리키는
+//전역 객체를 가리키므로 이 예제를 브라우저에서 실행하면 this.name은 빈 문자열을 갖는 window.name과 같다. 전역 객체 window에는 빌트인 프로퍼티 name이 존재한다.
+person.sayHi(); // Hi
 //[예제풀이 26 -40]
+// Good
+const person = {
+    name: 'Lee',
+    sayHi() {
+      console.log(`Hi ${this.name}`);
+    }
+  };
+  person.sayHi(); // Hi Lee
 //[예제풀이 26 -41]
+// Bad
+function Person(name) {
+    this.name = name;
+  }
+  Person.prototype.sayHi = () => console.log(`Hi ${this.name}`);
+  const person = new Person('Lee');
+  // 이 예제를 브라우저에서 실행하면 this.name은 빈 문자열을 갖는 window.name과 같다.
+  person.sayHi(); // Hi
 //[예제풀이 26 -42]
+  // Good
+  function Person(name) {
+    this.name = name;
+  }
+  Person.prototype.sayHi = function () { console.log(`Hi ${this.name}`); };
+  const person = new Person('Lee');
+  person.sayHi(); // Hi Lee
 //[예제풀이 26 -43]
+function Person(name) {
+    this.name = name;
+  }
+  
+  Person.prototype = {
+    // constructor 프로퍼티와 생성자 함수 간의 연결을 재설정
+    constructor: Person,
+    sayHi() { console.log(`Hi ${this.name}`); }
+  };
+  const person = new Person('Lee');
+  person.sayHi(); // Hi Lee
 //[예제풀이 26 -44]
+  // Bad
+  class Person {
+    // 클래스 필드 정의 제안
+    name = 'Lee';
+    sayHi = () => console.log(`Hi ${this.name}`);
+  }
+  const person = new Person();
+  person.sayHi(); // Hi Lee
 //[예제풀이 26 -45]
+class Person {
+    constructor() {
+      this.name = 'Lee';
+      // 클래스가 생성한 인스턴스(this)의 sayHi 프로퍼티에 화살표 함수를 할당한다.
+      // sayHi 프로퍼티는 인스턴스 프로퍼티이다.
+      this.sayHi = () => console.log(`Hi ${this.name}`);
+    }}
 //[예제풀이 26 -46]
+ // Good
+ class Person {
+    // 클래스 필드 정의
+    name = 'Lee';
+  
+    sayHi() { console.log(`Hi ${this.name}`); }
+  }
+  const person = new Person();
+  person.sayHi(); // Hi Lee
 //[예제풀이 26 -47]
+class Base {
+    constructor(name) {
+      this.name = name;
+    }
+    sayHi() {
+      return `Hi! ${this.name}`;
+    }
+  }
+  class Derived extends Base {
+    //화살표 함수의 super는 상위 스코프인 constructor의 super를 가리킨다.
+    sayHi = () => `${super.sayHi()} how are you doing?`;
+  }
+  const derived = new Derived('Lee');
+  console.log(derived.sayHi()); // Hi! Lee how are you doing?
 //[예제풀이 26 -48]
+(function () {
+    // 화살표 함수 foo의 arguments는 상위 스코프인 즉시 실행 함수의 arguments를 가리킨다.
+    const foo = () => console.log(arguments); // [Arguments] { '0': 1, '1': 2 }
+    foo(3, 4);
+  }(1, 2));
+  
+  // 화살표 함수 foo의 arguments는 상위 스코프인 전역의 arguments를 가리킨다.
+  // 하지만 전역에는 arguments 객체가 존재하지 않는다. arguments 객체는 함수 내부에서만 유효하다.
+  const foo = () => console.log(arguments);
+  foo(1, 2); // ReferenceError: arguments is not defined
 //[예제풀이 26 -49]
+function foo(...rest) {
+    // 매개변수 rest는 인수들의 목록을 배열로 전달받는 Rest 파라미터다.
+    console.log(rest); // [ 1, 2, 3, 4, 5 ]
+  }
+  foo(1, 2, 3, 4, 5);
 //[예제풀이 26 -50]
+ function foo(param, ...rest) {
+    console.log(param); // 1
+    console.log(rest);  // [ 2, 3, 4, 5 ]
+  }
+  
+  foo(1, 2, 3, 4, 5);
+  function bar(param1, param2, ...rest) {
+    console.log(param1); // 1
+    console.log(param2); // 2
+    console.log(rest);   // [ 3, 4, 5 ]
+  }
+  bar(1, 2, 3, 4, 5);
 //[예제풀이 26 -51]
+  function foo(...rest, param1, param2) { }
+  foo(1, 2, 3, 4, 5);
+  // SyntaxError: Rest parameter must be last formal parameter
 //[예제풀이 26 -52]
+function foo(...rest1, ...rest2) { }
+foo(1, 2, 3, 4, 5);
+// SyntaxError: Rest parameter must be last formal parameter
 //[예제풀이 26 -53]
+function foo(...rest) {}
+console.log(foo.length); // 0
+function bar(x, ...rest) {}
+console.log(bar.length); // 1
+function baz(x, y, ...rest) {}
+console.log(baz.length); // 2
 //[예제풀이 26 -54]
+// 매개변수의 개수를 사전에 알 수 없는 가변 인자 함수
+function sum() {
+    // 가변 인자 함수는 arguments 객체를 통해 인수를 전달받는다.
+    console.log(arguments);
+  }
+  sum(1, 2); // {length: 2, '0': 1, '1': 2}
 //[예제풀이 26 -55]
+function sum() {
+    // 유사 배열 객체인 arguments 객체를 배열로 변환한다.
+    var array = Array.prototype.slice.call(arguments);
+    return array.reduce(function (pre, cur) {
+      return pre + cur;
+    }, 0);
+  }
+  console.log(sum(1, 2, 3, 4, 5)); // 15
 //[예제풀이 26 -56]
+function sum(...args) {
+    // Rest 파라미터 args에는 배열 [1, 2, 3, 4, 5]가 할당된다.
+    return args.reduce((pre, cur) => pre + cur, 0);
+  }
+  console.log(sum(1, 2, 3, 4, 5)); // 15
 //[예제풀이 26 -57]
+function sum(x, y) {
+    return x + y;
+  }
+  console.log(sum(1)); // NaN
 //[예제풀이 26 -58]
+function sum(x, y) {
+    // 인수가 전달되지 않아 매개변수의 값이 undefined인 경우 기본값을 할당한다.
+    x = x || 0;
+    y = y || 0;
+    return x + y;
+  }
+  console.log(sum(1, 2)); // 3
+  console.log(sum(1));    // 1
 //[예제풀이 26 -59]
+function sum(x = 0, y = 0) {
+    return x + y;
+  }
+  
+  console.log(sum(1, 2)); // 3
+  console.log(sum(1));    // 1
 //[예제풀이 26 -60]
+function logName(name = 'Lee') {
+    console.log(name);
+  }
+  logName();          // Lee
+  logName(undefined); // Lee
+  logName(null);      // null
 //[예제풀이 26 -61]
+function foo(...rest = []) {
+    console.log(rest);
+  }
+  // SyntaxError: Rest parameter may not have a default initializer
 //[예제풀이 26 -62]
+function sum(x, y = 0) {
+    console.log(arguments);
+  }
+  console.log(sum.length); // 1
+  sum(1);    // Arguments { '0': 1 }
+  sum(1, 2); // Arguments { '0': 1, '1': 2 }
