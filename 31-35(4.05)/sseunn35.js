@@ -1,57 +1,187 @@
-//[예제풀이 13 -01]
-//[예제풀이 13 -02]
-//[예제풀이 13 -03]
-//[예제풀이 13 -04]
-//[예제풀이 13 -05]
-//[예제풀이 13 -06]
-//[예제풀이 13 -07]
-//[예제풀이 13 -08]
-//[예제풀이 13 -09]
-//[예제풀이 13 -10]
-//[예제풀이 13 -11]
-//[예제풀이 13 -13]
-//[예제풀이 13 -13]
-//[예제풀이 13 -14]
-//[예제풀이 13 -15]
-//[예제풀이 13 -16]
-//[예제풀이 13 -17]
-//[예제풀이 13 -18]
-//[예제풀이 13 -19]
-//[예제풀이 13 -20]
-//[예제풀이 13 -21]
-//[예제풀이 13 -22]
-//[예제풀이 13 -23]
-//[예제풀이 13 -24]
-//[예제풀이 13 -25]
-//[예제풀이 13 -26]
-//[예제풀이 13 -27]
-//[예제풀이 13 -28]
-//[예제풀이 13 -29]
-//[예제풀이 13 -30]
-//[예제풀이 13 -31]
-//[예제풀이 13 -32]
-//[예제풀이 13 -33]
-//[예제풀이 13 -34]
-//[예제풀이 13 -35]
-//[예제풀이 13 -36]
-//[예제풀이 13 -37]
-//[예제풀이 13 -38]
-//[예제풀이 13 -39]
-//[예제풀이 13 -40]
-//[예제풀이 13 -41]
-//[예제풀이 13 -42]
-//[예제풀이 13 -43]
-//[예제풀이 13 -44]
-//[예제풀이 13 -45]
-//[예제풀이 13 -46]
-//[예제풀이 13 -47]
-//[예제풀이 13 -48]
-//[예제풀이 13 -49]
-//[예제풀이 13 -50]
-//[예제풀이 13 -51]
-//[예제풀이 13 -52]
-//[예제풀이 13 -53]
-//[예제풀이 13 -54]
-//[예제풀이 13 -55]
-//[예제풀이 13 -56]
-//[예제풀이 13 -57]
+//[예제풀이 35 -01]
+//...[1, 2, 3]은 [1, 2, 3]을 개별 요소로 분리한다(1, 2, 3)
+console.log(...[1, 2, 3]); //1 2 3
+//문자열은 이터러블이다.
+console.log(...'Hello'); //Hello
+//Map과 Set은 이터러블이다.
+console.log(...new Map([['a', '1'], ['b', '2']])); //['a','1' ] ['b','2' ]
+console.log(...new Set([1, 2, 3])); //1 2 3
+//이터러블이 아닌 일반 객체는 스프레드 문법의 대상이 될 수 없다.
+console.log(...{ a: 1, b: 2 });
+//TypeError: Found non-callable @@iterator
+
+//[예제풀이 35-02]
+//스프레드 문법의 결과는 값이 아니다.
+const list = ...[1, 2, 3]; //SyntaxError: Unexpected token
+
+//[예제풀이 35-03]
+const arr = [1, 2, 3];
+// 배열 arr의 요소 중에서 최대값을 구하기 위해 Math.max를 사용한다.
+const max = Math.max(arr); //NaN
+
+//[예제풀이 35-04]
+Math.max(1);//1
+Math.max(1, 2); //2
+Math.max(1, 2, 3); //3
+Math.max();//-Infinity
+
+//[예제풀이 35-05]
+Math.max([1, 2, 3]); //NaN
+
+//[예제풀이 35-06]
+var arr = [1, 2, 3];
+//apply 함수의 2번째 인수(배열)는 apply 함수가 호출하는 함수의 인수 목록이다.
+//따라서 배열이 펼쳐져서 인수로 전달되는 효과가 있다.
+var max = Math.max.apply(null, arr); //3
+
+//[예제풀이 35-07]
+const arr = [1, 2, 3];
+// 스프레드 문법을 사용하여 배열 arr을 1, 2, 3으로 펼쳐서 Math.max에 전달한다.
+// Math.max(...[1, 2, 3])은 Math.max(1, 2, 3)과 같다.
+const max = Math.max(...arr); //3
+
+//[예제풀이 35-08]
+// Rest 파라미터는 인수들의 목록을 배열로 전달받는다.
+function foo(...rest) {
+  console.log(rest); //1, 2, 3 ->[ 1, 2, 3 ]
+}
+// 스프레드 문법은 배열과 같은 이터러블을 펼쳐서 개별적인 값들의 목록을 만든다.
+//[1, 2, 3] ->1, 2, 3
+foo(...[1, 2, 3]);
+
+//[예제풀이 35-09]
+// ES5
+var arr = [1, 2].concat([3, 4]);
+console.log(arr);//[1, 2, 3, 4]
+
+//[예제풀이 35-10]
+
+// ES6
+const arr = [...[1, 2], ...[3, 4]];
+console.log(arr); // [1, 2, 3, 4]
+//[예제풀이 35-11]
+//ES5
+var arr1 = [1, 4];
+var arr2 = [2, 3];
+//세 번째 인수 arr2를 해체하여 전달해야 한다.
+//그렇지 않으면 arr1에 arr2 배열 자체가 추가된다.
+arr1.splice(1, 0, arr2);
+//기대한 결과는 [1, [2, 3], 4]가 아니라 [1, 2, 3, 4]다.
+console.log(arr1); //[1, [2, 3], 4]
+
+//[예제풀이 35-12]
+//ES5
+var arr1 = [1, 4];
+var arr2 = [2, 3];
+apply 메서드의 2번째 인수(배열)는 apply 메서드가 호출한 splice 메서드의 인수 목록이다.
+apply 메서드의 2번째 인수 [1, 0].concat(arr2)는 [1, 0, 2, 3]으로 평가된다.
+따라서 splice 메서드에 apply 메서드의 2번째 인수 [1, 0, 2, 3]이 해체되어 전달된다.
+즉, arr1[1]부터 0개의 요소를 제거하고 그 자리(arr1[1])에 새로운 요소(2, 3)를 삽입한다.
+Array.prototype.splice.apply(arr1, [1, 0].concat(arr2));
+console.log(arr1); //[1, 2, 3, 4]
+
+//[예제풀이 35-13]
+// ES6
+const arr1 = [1, 4];
+const arr2 = [2, 3];
+arr1.splice(1, 0, ...arr2);
+console.log(arr1); //[1, 2, 3, 4]
+
+//[예제풀이 35-14]
+// ES5
+var origin = [1, 2];
+var copy = origin.slice();
+console.log(copy); //[1, 2]
+console.log(copy === origin); //false
+
+//[예제풀이 35-15]
+// ES6
+const origin = [1, 2];
+const copy = [...origin];
+console.log(copy); //[1, 2]
+console.log(copy === origin); //false
+
+//[예제풀이 35-16]
+//ES5
+function sum() {
+//이터러블이면서 유사 배열 객체인 arguments를 배열로 변환
+var args = Array.prototype.slice.call(arguments);
+
+return args.reduce(function (pre, cur) {
+  return pre + cur;
+  }, 0);
+}
+console.log(sum(1, 2, 3)); //6
+//[예제풀이 35-17
+//이터러블이 아닌 유사 배열 객체
+const arrayLike = {
+  0: 1,
+  1: 2,
+  2: 3,
+  length: 3
+};
+const arr = Array.prototype.slice.call(arrayLike); // -> [1, 2, 3]
+console.log(Array.isArray(arr)); // true
+
+//[예제풀이 35-18]
+// ES6
+function sum() {
+  // 이터러블이면서 유사 배열 객체인 arguments를 배열로 변환
+  return [...arguments].reduce((pre, cur) => pre + cur, 0);
+}
+console.log(sum(1, 2, 3)); //6
+
+//[예제풀이 35-19]
+// Rest 파라미터 args는 함수에 전달된 인수들의 목록을 배열로 전달받는다.
+const sum = (...args) => args.reduce((pre, cur) => pre + cur, 0);
+console.log(sum(1, 2, 3)); //6
+
+//[예제풀이 35-20]
+// 이터러블이 아닌 유사 배열 객체
+const arrayLike = {
+  0: 1,
+  1: 2,
+  2: 3,
+  length: 3
+};
+const arr = [...arrayLike];
+// TypeError: object is not iterable (cannot read property Symbol(Symbol.iterator))
+
+//[예제풀이 35-21]
+// Array.from은 유사 배열 객체 또는 이터러블을 배열로 변환한다
+Array.from(arrayLike); //[1, 2, 3]
+
+//[예제풀이 35-22]
+// 스프레드 프로퍼티
+// 객체 복사(얕은 복사)
+const obj = { x: 1, y: 2 };
+const copy = { ...obj };
+console.log(copy); // { x: 1, y: 2 }
+console.log(obj === copy); // false
+// 객체 병합
+const merged = { x: 1, y: 2, ...{ a: 3, b: 4 } };
+console.log(merged); //{ x: 1, y: 2, a: 3, b: 4 }
+
+//[예제풀이 35-23]
+//객체 병합. 프로퍼티가 중복되는 경우, 뒤에 위치한 프로퍼티가 우선권을 갖는다.
+const merged = Object.assign({}, { x: 1, y: 2 }, { y: 10, z: 3 });
+console.log(merged); //{x: 1, y: 10, z: 3 }
+//특정 프로퍼티 변경
+const changed = Object.assign({}, { x: 1, y: 2 }, { y: 100 });
+console.log(changed); //{ x: 1, y: 100 }
+//프로퍼티 추가
+const added = Object.assign({}, { x: 1, y: 2 }, { z: 0 });
+console.log(added); // {x: 1, y: 2, z: 0 }
+
+//[예제풀이 35-24]
+//객체 병합. 프로퍼티가 중복되는 경우, 뒤에 위치한 프로퍼티가 우선권을 갖는다.
+const merged = { ...{ x: 1, y: 2 }, ...{ y: 10, z: 3 } };
+console.log(merged); //{x: 1, y: 10, z: 3 }
+//특정 프로퍼티 변경
+const changed = { ...{ x: 1, y: 2 }, y: 100 };
+//changed = {...{x: 1, y: 2 }, ...{ y: 100 } }
+console.log(changed); //{ x: 1, y: 100 }
+//프로퍼티 추가
+const added = { ...{ x: 1, y: 2 }, z: 0 };
+//added = { ...{ x: 1, y: 2 }, ...{ z: 0 } }
+console.log(added); //{ x: 1, y: 2, z: 0 }
