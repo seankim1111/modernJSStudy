@@ -68,23 +68,23 @@ today.getMonth(); //0
 // 월/일 지정
 today.setMonth(11, 1); // 12월 1일
 today.getMonth(); //11
-//[예제풀이 30-13]
 
+//[예제풀이 30-13]
 new Date('2020/07/24').getDate(); //24
+
 //[예제풀이 30-14]
 const today = new Date();
-
 // 날짜 지정
 today.setDate(1);
 today.getDate(); //1
+
 //[예제풀이 30-15]
-
 new Date('2020/07/24').getDay(); //5
+
 //[예제풀이 30-16]
-
 new Date('2020/07/24/12:00').getHours(); //12
-//[예제풀이 30-17]
 
+//[예제풀이 30-17]
 const today = new Date();
 
 // 시간 지정
@@ -94,25 +94,23 @@ today.getHours(); //7
 // 시간/분/초/밀리초 지정
 today.setHours(0, 0, 0, 0); // 00:00:00:00
 today.getHours(); //0
+
 //[예제풀이 30-18]
-
 new Date('2020/07/24/12:30').getMinutes(); //30
+
 //[예제풀이 30-19]
-
 const today = new Date();
-
 // 분 지정
 today.setMinutes(50);
 today.getMinutes(); // 50
-
 // 분/초/밀리초 지정
 today.setMinutes(5, 10, 999); // HH:05:10:999
 today.getMinutes(); // 5
+
 //[예제풀이 30-20]
-
 new Date('2020/07/24/12:/).getSeconds(); //10
-//[예제풀이 30-21]
 
+//[예제풀이 30-21]
 const today = new Date();
 
 // 초 지정
@@ -122,38 +120,47 @@ today.getSeconds();
 // 초/밀리초 지정
 today.setSeconds(10, 0); // HH:MM:10:000
 today.getSeconds(); //10
+
 //[예제풀이 30-22]
 new Date('2020/07/24/12: 30:10:150').getMilliseconds(); // 150
+
 //[예제풀이 30-23]
 const today = new Date();
 // 밀리초 지정
 today.setMilliseconds(123);
 today.getMilliseconds(); //123
+
 //[예제풀이 30-24]
 new Date('2020/07/24/12:).getTime(); //1595561400000
+
 //[예제풀이 30-25]
 const today = new Date();
 //1970년 1월 1일 00:00:00(UTC)를 기점으로 경과된 밀리초 설정
 today.setTime(86400000); //86400000는 1day를 나타낸다.
 console.log(today); //Fri Jan 02 1970 09:00:00 GMT+0900 
+
 //[예제풀이 30-26]
 const today = new Date(); // today의 지정 로캘은 KST다.
 //UTC와 today의 지정 로캘 KST와의 차이는 -9시간이다.
 today.getTimezoneOffset() / 60; // -9
+
 //[예제풀이 30-27]
 const today = new Date('2020/7/24/12:30');
 today.toString();     //Fri Jul 24 2020 12://[GMT+0900 (대한민국 표준시)
 today.toDateString(); //Fri Jul 24 2020
+
 //[예제풀이 30-28]
 const today = new Date('2020/7/24/12:30);
 today.toString();     //Fri Jul 24 2020 12://[ GMT+0900 (대한민국 표준시)
 today.toTimeString(); //12://[ GMT+0900 (대한민국 표준시)
+
 //[예제풀이 30-29]
 const today = new Date('2020/7/24/12:30');
 today.toString();    //  Fri Jul 24 2020 12:/[GMT+0900 (대한민국 표준시)
 today.toISOString(); //2020-07-24T03:
 today.toISOString().slice(0, 10); //2020-07-24
 today.toISOString().slice(0, 10).replace(/-/g, ''); // 20200724
+
 //[예제풀이 30- 30]
 const today = new Date('2020/7/24/12:30);
 today.toString(); //Fri Jul 24 2020 12://[0 GMT+0900 (대한민국 표준시)
@@ -161,8 +168,8 @@ today.toLocaleString(); //2020. 7. 24. 오후 12:30
 today.toLocaleString('ko-KR'); //2020. 7. 24. 오후 12:30
 today.toLocaleString('en-US'); //7/24/2020, 12:30
 today.toLocaleString('ja-JP'); //2020/7/24 12:30
-//[예제풀이 30-31]
 
+//[예제풀이 30-31]
 const today = new Date('2020/7/24/12://[예제풀이 30');
 
 today.toString(); //Fri Jul 24 2020 12:30:00 GMT+0900 (대한민국 표준시)
@@ -170,6 +177,7 @@ today.toLocaleTimeString(); //오후 12:30:00
 today.toLocaleTimeString('ko-KR'); //오후 12:30
 today.toLocaleTimeString('en-US'); //12:30:00 PM
 today.toLocaleTimeString('ja-JP'); //12:30:00
+
 //[예제풀이 30-32]
 
 (function printNow() {
