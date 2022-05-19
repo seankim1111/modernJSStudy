@@ -357,7 +357,6 @@ function foo() {
     y=20; //window.y=20; 
 }
 foo();
-
 //선언하지 않은 식별자y를 전역에서 참조할수있다.
 console.log(x +y ); //30 
 //[예제풀이 21 -39]
