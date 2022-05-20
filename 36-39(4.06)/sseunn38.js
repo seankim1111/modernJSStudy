@@ -1,57 +1,85 @@
-//[예제풀이 13 -01]
-//[예제풀이 13 -02]
-//[예제풀이 13 -03]
-//[예제풀이 13 -04]
-//[예제풀이 13 -05]
-//[예제풀이 13 -06]
-//[예제풀이 13 -07]
-//[예제풀이 13 -08]
-//[예제풀이 13 -09]
-//[예제풀이 13 -10]
-//[예제풀이 13 -11]
-//[예제풀이 13 -13]
-//[예제풀이 13 -13]
-//[예제풀이 13 -14]
-//[예제풀이 13 -15]
-//[예제풀이 13 -16]
-//[예제풀이 13 -17]
-//[예제풀이 13 -18]
-//[예제풀이 13 -19]
-//[예제풀이 13 -20]
-//[예제풀이 13 -21]
-//[예제풀이 13 -22]
-//[예제풀이 13 -23]
-//[예제풀이 13 -24]
-//[예제풀이 13 -25]
-//[예제풀이 13 -26]
-//[예제풀이 13 -27]
-//[예제풀이 13 -28]
-//[예제풀이 13 -29]
-//[예제풀이 13 -30]
-//[예제풀이 13 -31]
-//[예제풀이 13 -32]
-//[예제풀이 13 -33]
-//[예제풀이 13 -34]
-//[예제풀이 13 -35]
-//[예제풀이 13 -36]
-//[예제풀이 13 -37]
-//[예제풀이 13 -38]
-//[예제풀이 13 -39]
-//[예제풀이 13 -40]
-//[예제풀이 13 -41]
-//[예제풀이 13 -42]
-//[예제풀이 13 -43]
-//[예제풀이 13 -44]
-//[예제풀이 13 -45]
-//[예제풀이 13 -46]
-//[예제풀이 13 -47]
-//[예제풀이 13 -48]
-//[예제풀이 13 -49]
-//[예제풀이 13 -50]
-//[예제풀이 13 -51]
-//[예제풀이 13 -52]
-//[예제풀이 13 -53]
-//[예제풀이 13 -54]
-//[예제풀이 13 -55]
-//[예제풀이 13 -56]
-//[예제풀이 13 -57]
+//[예제풀이 38 -01]
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <ul>
+      <li id="apple">Apple</li>
+      <li id="banana">Banana</li>
+      <li id="orange">Orange</li>
+    </ul>
+    <script src="app.js"></script>
+  </body>
+</html>
+
+//[예제풀이 38-02]
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+
+//[예제풀이 38-03]
+body {
+  font-size: 18px;
+}
+ul {
+  list-style-type: none;
+}
+
+//[예제풀이 38-04]
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <script>
+      DOM API인 document.getElementById는 DOM에서 id가 'apple'인 HTML 요소를 취득한다. 아래 DOM API가 실행되는 시점에는 아직 id가 'apple'인 HTML 요소를 파싱하지
+      않았기 때문에 DOM에는 id가 'apple'인 HTML 요소가 포함되어 있지 않다.따라서 아래 코드는 정상적으로 id가 'apple'인 HTML 요소를 취득하지 못한다.
+      const $apple = document.getElementById('apple');
+      id가 'apple'인 HTML 요소의 css color 프로퍼티 값을 변경한다.이때 DOM에는 id가 'apple'인 HTML 요소가 포함되어 있지 않기 때문에 에러가 발생한다.
+      $apple.style.color = 'red'; //TypeError: Cannot read property 'style' of null
+    </script>
+  </head>
+  <body>
+    <ul>
+      <li id="apple">Apple</li>
+      <li id="banana">Banana</li>
+      <li id="orange">Orange</li>
+    </ul>
+  </body>
+</html>
+
+//[예제풀이 38-05]
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <ul>
+      <li id="apple">Apple</li>
+      <li id="banana">Banana</li>
+      <li id="orange">Orange</li>
+    </ul>
+    <script>
+      /*
+      DOM API인 document.getElementById는 DOM에서 id가 'apple'인 HTML 요소를
+      취득한다. 아래 코드가 실행되는 시점에는 id가 'apple'인 HTML 요소의 파싱이 완료되어
+      DOM에 포함되어 있기 때문에 정상적으로 동작한다.
+      */
+      const $apple = document.getElementById('apple');
+
+      // apple 요소의 css color 프로퍼티 값을 변경한다.
+      $apple.style.color = 'red';
+    </script>
+  </body>
+</html>
+
+//[예제풀이 38-06]
+<script async src="extern.js"></script>
+<script defer src="extern.js"></script>
